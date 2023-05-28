@@ -1,0 +1,33 @@
+{
+  "name": "back",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "dependencies": {
+    "@strapi/plugin-i18n": "4.8.2",
+    "@strapi/plugin-users-permissions": "4.8.2",
+    "@strapi/strapi": "4.8.2",
+    "@types/koa": "^2.13.5",
+    "@types/koa-multer": "^1.0.1",
+    "pg": "8.8.0",
+    "qs": "^6.11.1",
+    "strapi-provider-upload-local-extra": "^1.3.0"
+  },
+  "author": {
+    "name": "Тюрчев Михаил"
+  },
+  "strapi": {
+    "uuid": "889c5898-069b-4a96-9618-2b189de20809"
+  },
+  "engines": {
+    "node": ">=14.19.1 <=18.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

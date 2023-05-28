@@ -1,0 +1,10 @@
+{
+  "name": "lct_23_8",
+  "version": "1.0.0",
+  "description": "Проект для хакатона ЛЦТ 2023",
+  "scripts": {
+    "develop": "npm --prefix ./back run develop"
+  },
+  "author": "Тюрчев Михаил",
+  "license": "MIT"
+}

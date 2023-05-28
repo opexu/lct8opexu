@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+    @font-face {
+        font-family: 'Inter-Regular';
+        src: url('./fonts/Inter/Inter-Regular.ttf') format('truetype');
+    }
+    
+    @font-face {
+        font-family: 'Inter-Bold';
+        src: url('./fonts/Inter/Inter-Bold.ttf') format('truetype');
+    }
+
+    html {
+        font-family: 'Inter-Regular';
+        @apply w-full h-full bg-white text-black overscroll-none;
+    }
+
+    body {
+        @apply w-screen;
+    }
+
+    .first {
+        @apply bg-blue-700 hover:bg-blue-600 active:bg-blue-500 text-white rounded;
+    }
+
+    .common-handler-btn-blue {
+        @apply [&:not([disabled])]:hover:bg-blue-100 [&:not([disabled])]:active:bg-blue-200 disabled:bg-slate-100 disabled:text-slate-500
+    }
+
+    .common-handler-btn-orange {
+        @apply [&:not([disabled])]:hover:bg-orange-100 [&:not([disabled])]:active:bg-orange-200 disabled:bg-slate-100 disabled:text-slate-500
+    }
+
+    .active-btn-blue {
+        @apply bg-primary-600 text-white hover:bg-blue-500 hover:text-white;
+    }
+
+    .common-handler-btn-slate {
+        @apply [&:not([disabled])]:hover:bg-slate-100 [&:not([disabled])]:active:bg-slate-200 disabled:bg-slate-100 disabled:text-white
+    }
+}

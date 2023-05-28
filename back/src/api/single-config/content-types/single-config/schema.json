@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "collectionName": "single_configs",
+  "info": {
+    "singularName": "single-config",
+    "pluralName": "single-configs",
+    "displayName": "SingleConfig",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Offset_test": {
+      "type": "float"
+    }
+  }
+}
