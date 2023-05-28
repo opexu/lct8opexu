@@ -1,15 +1,23 @@
+import * as THREE from "three"
+
 enum Dir {
-    O, XP, XN, YP, YN, ZP, ZN
+    O = 'O', 
+    XP = '+X', 
+    XN = '-X', 
+    YP = '+Y', 
+    YN = '-Y', 
+    ZP = '+Z', 
+    ZN = '-Z'
 }
 
 const DirV = {
-    [Dir.O]: { x: 0, y: 0, z: 0 },
-    [Dir.XP]: { x: 1, y: 0, z: 0 },
-    [Dir.XN]: { x: -1, y: 0, z: 0 },
-    [Dir.YP]: { x: 0, y: 1, z: 0 },
-    [Dir.YN]: { x: 0, y: -1, z: 0 },
-    [Dir.ZP]: { x: 0, y: 0, z: 1 },
-    [Dir.ZN]: { x: 0, y: 0, z: -1 },
+    [Dir.O]: new THREE.Vector3( 0, 0, 0 ),
+    [Dir.XP]: new THREE.Vector3( 1, 0, 0 ),
+    [Dir.XN]: new THREE.Vector3( -1, 0, 0 ),
+    [Dir.YP]: new THREE.Vector3( 0, 1, 0 ),
+    [Dir.YN]: new THREE.Vector3( 0, -1, 0 ),
+    [Dir.ZP]: new THREE.Vector3( 0, 0, 1 ),
+    [Dir.ZN]: new THREE.Vector3( 0, 0, -1 ),
 }
 
 export {

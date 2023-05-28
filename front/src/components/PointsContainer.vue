@@ -16,7 +16,7 @@
     />
 
     <button class="w-full h-fit p-2 flex flex-row justify-center items-center bg-white common-handler-btn-blue"
-    @click="Process"
+    @click="processStore.process()"
     >
         Рассчитать
     </button>
@@ -30,8 +30,4 @@ import { useProcessStore } from '@/store/ProcessStore';
 
 const pointStore = usePointStore();
 const processStore = useProcessStore();
-
-function Process(){
-    processStore.process();
-}
 </script>

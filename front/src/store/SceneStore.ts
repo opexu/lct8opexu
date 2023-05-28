@@ -19,21 +19,24 @@ export const useSceneStore = defineStore('SceneStore', () => {
     pO.name = 'pO';
     scene.add( pO );
     function clearPO(){
-        for( let i = 0; i < pO.children.length; i++ ){
-            pO.remove( pO.children[i] );
-        }
+        pO.clear();
     }
 
     const rO = new THREE.Object3D();
     rO.name = 'rO';
     scene.add( rO );
     function clearRO(){
-        for( let i = 0; i < rO.children.length; i++ ){
-            rO.remove( rO.children[i] );
-        }
+        rO.clear();
+    }
+
+    const lO = new THREE.Object3D();
+    lO.name = 'lO';
+    scene.add( lO );
+    function clearLO(){
+        lO.clear();
     }
 
     return {
-        scene, uO, pO, rO, clearPO, clearRO,
+        scene, uO, pO, rO, lO, clearPO, clearRO, clearLO
     }
 })

@@ -3,10 +3,11 @@ import { defineStore } from "pinia";
 import *  as THREE from "three";
 import { ref } from "vue";
 import { useSceneStore } from "./SceneStore";
+import { TEST_POINTS_ARR } from "@/scripts/config/TEST_POINTS_ARR";
 
 export const usePointStore = defineStore('PointsStore', () => {
 
-    const pointsArr = ref<IPoint[]>([]);
+    const pointsArr = ref<IPoint[]>( TEST_POINTS_ARR );
 
     function isDuplicate( pointName: string, pointType: PointType ){
         if( pointType === PointType.Output ){
@@ -30,7 +31,7 @@ export const usePointStore = defineStore('PointsStore', () => {
             const ip = pointsArr.value[i];
             const ipv = ip.position;
             const mat = new THREE.MeshBasicMaterial({ color: new THREE.Color( ip.pointColor ) });
-            const geo = new THREE.SphereGeometry( 0.2, 12, 12 );
+            const geo = new THREE.SphereGeometry( 0.1, 12, 12 );
             const mesh = new THREE.Mesh( geo, mat );
             mesh.position.set( ipv.x, ipv.y, ipv.z );
             pO.add( mesh );

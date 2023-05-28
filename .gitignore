@@ -162,3 +162,4 @@ _drafts
 **/*.env
 strapi-data
 *.code-workspace
+drafts

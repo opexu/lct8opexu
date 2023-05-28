@@ -5,6 +5,7 @@ import { useSceneStore } from './SceneStore';
 import { usePointStore } from './PointStore';
 import { PointUtils } from '@/scripts/utils/PointUtils';
 import type { IPoint } from '@/scripts/config/Point';
+import { LineUtils } from "@/scripts/utils/LineUtils";
 
 export const useProcessStore = defineStore('ProcessStore', () => {
 
@@ -15,15 +16,16 @@ export const useProcessStore = defineStore('ProcessStore', () => {
         errorText.value = '';
         const sceneStore = useSceneStore();
 
-        const scene = sceneStore.scene;
         sceneStore.clearPO();
         sceneStore.clearRO();
+        sceneStore.clearLO();
 
-        useRoomStore().generateRomm();
+        const roomStore = useRoomStore();
+        roomStore.generateRomm();
 
         const pointStore = usePointStore();
         pointStore.visPoints();
-        
+
         const outP = pointStore.getOutPoint();
         if( outP === undefined ) { _error('Точка слива не задана'); return; }
 
@@ -32,12 +34,59 @@ export const useProcessStore = defineStore('ProcessStore', () => {
 
         if( !PointUtils.checkHeight( outP, inPArr ) ) { _error('Одна из точек подключения ниже уровня слива'); return; }
         
-        const roomBox = useRoomStore().roomBox;
+        const roomBox = roomStore.roomBox;
         if( roomBox === undefined ) { _error('Внутренняя ошибка алгоритма: box помещения не задан'); return; }
         
         if( _isAnyPointWallIntersect( pointStore.pointsArr, roomBox ) ) { _error('Точки находятся внутри помещения'); return; }
 
+        const room = roomStore.room;
+
+        const { sidePoint: outSidePoint, downPoint: outDownPoint } = PointUtils.boxClosestPoint( roomBox, outP, room.offset, 3 );
+
+        const CCWFlatPoints = PointUtils.offsetRect( room.length, room.width, room.offset );
+        const CWFlatPoints = CCWFlatPoints.map( v => v ).reverse();
         
+        const CCWPoints = LineUtils.remapPoints( CCWFlatPoints, outP.position );
+        const CWPoints = LineUtils.remapPoints( CWFlatPoints, outP.position );
+
+        const CCWLines = LineUtils.createLine3Arr( CCWPoints );
+        const CWLines = LineUtils.createLine3Arr( CWPoints );
+
+        const sidePoints = [];
+        const endPoints = [];
+        for( let i = 0; i < inPArr.length; i++ ){
+            const inP = inPArr[i];
+            const { sidePoint: sP, downPoint: dP } = PointUtils.boxClosestPoint( roomBox, inP, room.offset, -3 );
+            sidePoints.push( sP );
+            endPoints.push( dP );
+        }
+
+        let dataArr = [];
+        const CCWDataArr = [];
+        const CWDataArr = [];
+        let CCWLength = 0;
+        let CWLength = 0;
+        for( let i = 0; i < endPoints.length; i++ ){
+            const CCWData = LineUtils.trimPoints( CCWLines, endPoints[i] );
+            const CWData = LineUtils.trimPoints( CWLines, endPoints[i] );
+            CCWDataArr.push( CCWData );
+            CWDataArr.push( CWData );
+            CCWLength += CCWData.lineLength;
+            CWLength += CWData.lineLength;
+        }
+        dataArr = CCWLength > CWLength ? CCWDataArr : CWDataArr;
+
+        const pointsArr = [];
+        for( let i = 0; i < dataArr.length; i++ ){
+            const outArr = [ outDownPoint, outSidePoint, ...dataArr[i].pointsArr ];
+            outArr.push( sidePoints[i], inPArr[i].position );
+            pointsArr.push( outArr );
+        }
+
+        for( let i = 0; i < pointsArr.length; i++ ){
+            const lineMesh = LineUtils.createLineMesh( pointsArr[i] );
+            sceneStore.lO.add( lineMesh );
+        }
     }
 
     function _error( text: string ){
