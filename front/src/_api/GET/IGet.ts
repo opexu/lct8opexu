@@ -5,6 +5,7 @@ interface IGetParams {
 
 interface IGet {
     me(): IGetParams;
+    model( id: number ): IGetParams;
 }
 
 export type {

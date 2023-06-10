@@ -3,12 +3,14 @@
     <Room/>
     <AddPointVue/>
     <PointsContainer/>
+    <ResultContainer/>
 </div>
 </template>
 
 <script setup lang="ts">
 import AddPointVue from './AddPoint.vue';
 import PointsContainer from './PointsContainer.vue';
+import ResultContainer from './ResultContainer.vue';
 import Room from './Room.vue';
 
 

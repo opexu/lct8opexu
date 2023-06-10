@@ -3,6 +3,19 @@ import { PointUtils } from './PointUtils';
 
 export const LineUtils = {
 
+    calcLength( pointsArr: THREE.Vector3[] ): number[] {
+        
+        const length = [];
+        for( let i = 0; i < pointsArr.length - 1; i++ ){
+            const start = pointsArr[ i ];
+            const end = pointsArr[ i + 1 ];
+            const len = end.distanceTo( start );
+            length.push( len );
+        }
+
+        return length;
+    },
+
     createLineMesh( pointsArr: THREE.Vector3[] ): THREE.Line {
 
         const geo = new THREE.BufferGeometry().setFromPoints( pointsArr );

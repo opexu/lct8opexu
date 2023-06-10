@@ -16,7 +16,7 @@
     />
 
     <button class="w-full h-fit p-2 flex flex-row justify-center items-center bg-white common-handler-btn-blue"
-    @click="processStore.process()"
+    @click="onProcessClick"
     >
         Рассчитать
     </button>
@@ -27,7 +27,19 @@
 import { usePointStore } from '@/store/PointStore';
 import Point from './Point.vue';
 import { useProcessStore } from '@/store/ProcessStore';
+import { LCTRequest } from '@/_api/Request';
+import { GET } from '@/_api/GET/GET';
+import { StrapiUtils } from '@/scripts/utils/StrapiUtils';
+import type { IStrapiResponse } from '@/scripts/utils/IStrapi';
 
 const pointStore = usePointStore();
 const processStore = useProcessStore();
+
+async function onProcessClick(){
+    const result = await LCTRequest.GET<IStrapiResponse>( GET.model( 1 ) );
+    console.log('result: ', result)
+    const model = StrapiUtils.getModelURL( result );
+    console.log('model: ', model)
+    processStore.process()
+}
 </script>

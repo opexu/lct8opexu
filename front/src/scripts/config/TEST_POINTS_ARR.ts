@@ -13,7 +13,7 @@ export const TEST_POINTS_ARR = [
     {
         index: 1,
         name: 'A',
-        position: new Vector3( 5, 1.5, -4 ),
+        position: new Vector3( 5, 1.5, -2 ),
         intersectType: IntersectType.None,
         pointType: PointType.Input,
         pointColor: PointColor.Blue,
@@ -21,7 +21,7 @@ export const TEST_POINTS_ARR = [
     {
         index: 2,
         name: 'B',
-        position: new Vector3( 4, 1.8, 4 ),
+        position: new Vector3( 4, 1.8, 2 ),
         intersectType: IntersectType.None,
         pointType: PointType.Input,
         pointColor: PointColor.Blue,
@@ -29,7 +29,7 @@ export const TEST_POINTS_ARR = [
     {
         index: 3,
         name: 'C',
-        position: new Vector3( -5, 1.7, -4 ),
+        position: new Vector3( -5, 1.7, -2 ),
         intersectType: IntersectType.None,
         pointType: PointType.Input,
         pointColor: PointColor.Blue,

@@ -14,4 +14,14 @@ export const GET: IGet = {
             }, { encodeValuesOnly: true }),
         }
     },
+
+    model( id: number ){
+        return {
+            url: GET_ROUTES.model,
+            query: qs.stringify({
+                filters: { id },
+                populate: '*'
+            }, { encodeValuesOnly: true })
+        }
+    }
 }

@@ -12,11 +12,10 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Name": {
-      "type": "string"
-    },
-    "Offset_test": {
-      "type": "float"
+    "Settings": {
+      "type": "component",
+      "repeatable": true,
+      "component": "config.config"
     }
   }
 }

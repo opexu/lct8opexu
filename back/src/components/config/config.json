@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_config_configs",
+  "info": {
+    "displayName": "Config",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Value": {
+      "type": "float"
+    },
+    "Dimensions": {
+      "type": "string"
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useRoomStore } from "./RoomStore";
 import { useSceneStore } from './SceneStore';
 import { usePointStore } from './PointStore';
@@ -10,8 +10,26 @@ import { LineUtils } from "@/scripts/utils/LineUtils";
 export const useProcessStore = defineStore('ProcessStore', () => {
 
     const errorText = ref('');
+    const length = ref<number[]>([]);
 
-    function process(){
+    const result = computed(() => {
+        const r: { length: number, count: number }[] = [];
+        const c: Map<number, number> = new Map();
+        length.value?.forEach(( length, i ) => {
+            let count = 1;
+            if( c.has( length ) ){
+                count += 1;
+            }
+            else c.set( length, 0 );
+            
+            r.push({ length, count })
+        })
+        return r;
+    });
+
+    async function process(){
+
+        length.value = [];
 
         errorText.value = '';
         const sceneStore = useSceneStore();
@@ -19,6 +37,7 @@ export const useProcessStore = defineStore('ProcessStore', () => {
         sceneStore.clearPO();
         sceneStore.clearRO();
         sceneStore.clearLO();
+        sceneStore.clearMO();
 
         const roomStore = useRoomStore();
         roomStore.generateRomm();
@@ -37,7 +56,7 @@ export const useProcessStore = defineStore('ProcessStore', () => {
         const roomBox = roomStore.roomBox;
         if( roomBox === undefined ) { _error('Внутренняя ошибка алгоритма: box помещения не задан'); return; }
         
-        if( _isAnyPointWallIntersect( pointStore.pointsArr, roomBox ) ) { _error('Точки находятся внутри помещения'); return; }
+        if( !_isAnyPointWallIntersect( pointStore.pointsArr, roomBox ) ) { _error('Точки находятся снаружи помещения'); return; }
 
         const room = roomStore.room;
 
@@ -84,9 +103,12 @@ export const useProcessStore = defineStore('ProcessStore', () => {
         }
 
         for( let i = 0; i < pointsArr.length; i++ ){
+            length.value.push( ...LineUtils.calcLength( pointsArr[i] ));
             const lineMesh = LineUtils.createLineMesh( pointsArr[i] );
             sceneStore.lO.add( lineMesh );
         }
+
+
     }
 
     function _error( text: string ){
@@ -107,5 +129,5 @@ export const useProcessStore = defineStore('ProcessStore', () => {
         return isWallIntersection;
     }
 
-    return { errorText, process }
+    return { errorText, process, result }
 })
