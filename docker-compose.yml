@@ -84,7 +84,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     links:
       - front:front
-      - back-strapi:back-strapi
+      # - back-strapi:back-strapi
     depends_on:
       - front
       - back-strapi
