@@ -9,6 +9,10 @@ export default defineConfig({
     plugins: [vue()],
     root: path.resolve(__dirname, './src'),
     server: {
+        //base:'/front',
+        // proxy:{
+        //     '/front': 'http://172.21.0.1:8000'
+        // },
         port: 8000,
         hot: true,
         watch: {

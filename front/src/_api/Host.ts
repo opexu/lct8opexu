@@ -1,6 +1,6 @@
 const HOST = {
     
-    BACK_IN_DOCKER: "/admin/",
+    BACK_IN_DOCKER: "/backend/",
     STANDALONE: "http://localhost:1337/",
 
     ROOT_API(){

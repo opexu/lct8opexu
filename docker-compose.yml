@@ -64,7 +64,6 @@ services:
     # DEV ( to PROD comment volumes section )
     volumes:
       - ./front/src:/usr/src/app/src
-
     networks:
       - lct
 
